@@ -54,7 +54,7 @@ def apply_photoshop_watercolor_exact(img_bytes):
     
     # 境目の部分を真っ黒にするのではなく、「元の色を最大でも25%ほど暗くする」ための係数を作成
     edges_float = edges.astype(np.float32) / 255.0
-    darken_factor = 1.0 - (edges_float * 0.4) 
+    darken_factor = 1.0 - (edges_float * 0.5) 
 
     # 4. 【合成処理】
     paint_float = paint.astype(np.float32)
