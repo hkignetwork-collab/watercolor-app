@@ -37,11 +37,11 @@ def apply_photoshop_watercolor_exact(img_bytes):
         h, w = img.shape[:2]
 
     # 1. 色の鮮やかさを少しだけ上げる
-    img_contrast = cv2.convertScaleAbs(img, alpha=1.1, beta=0)
+    img_contrast = cv2.convertScaleAbs(img, alpha=1.3, beta=0)
 
     # 2. にじみと平滑化（顔のディテールを壊さないよう、フィルタの範囲を少し小さく設定）
-    paint = cv2.bilateralFilter(img_contrast, d=5, sigmaColor=50, sigmaSpace=50)
-    paint = cv2.bilateralFilter(paint, d=5, sigmaColor=50, sigmaSpace=50)
+    paint = cv2.bilateralFilter(img_contrast, d=7, sigmaColor=75, sigmaSpace=75)
+    paint = cv2.bilateralFilter(paint, d=7, sigmaColor=75, sigmaSpace=75)
     paint = cv2.medianBlur(paint, 3)
 
     # 3. 【黒線の排除と極細陰影の作成】
@@ -54,7 +54,7 @@ def apply_photoshop_watercolor_exact(img_bytes):
     
     # 境目の部分を真っ黒にするのではなく、「元の色を最大でも25%ほど暗くする」ための係数を作成
     edges_float = edges.astype(np.float32) / 255.0
-    darken_factor = 1.0 - (edges_float * 0.25) 
+    darken_factor = 1.0 - (edges_float * 0.3) 
 
     # 4. 【合成処理】
     paint_float = paint.astype(np.float32)
