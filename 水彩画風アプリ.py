@@ -40,8 +40,8 @@ def apply_photoshop_watercolor_exact(img_bytes):
     img_contrast = cv2.convertScaleAbs(img, alpha=1.3, beta=0)
 
     # 2. にじみと平滑化（顔のディテールを壊さないよう、フィルタの範囲を少し小さく設定）
-    paint = cv2.bilateralFilter(img_contrast, d=7, sigmaColor=75, sigmaSpace=75)
-    paint = cv2.bilateralFilter(paint, d=7, sigmaColor=75, sigmaSpace=75)
+    paint = cv2.bilateralFilter(img_contrast, d=9, sigmaColor=75, sigmaSpace=75)
+    paint = cv2.bilateralFilter(paint, d=9, sigmaColor=75, sigmaSpace=75)
     paint = cv2.medianBlur(paint, 3)
 
     # 3. 【黒線の排除と極細陰影の作成】
